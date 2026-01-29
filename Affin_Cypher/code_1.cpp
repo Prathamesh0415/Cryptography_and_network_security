@@ -1,6 +1,4 @@
 #include<bits/stdc++.h>
-#include<string>
-#include<vector>
 
 using namespace std;
 
@@ -10,6 +8,8 @@ using namespace std;
 const int a  = 3;
 //b can be anything less than 25 and it represents the shift
 const int b = 7;
+
+const int A = 9; // a^-1
 
 //ENCRYPTION
 //Formula is (ax + b) % m
@@ -28,15 +28,24 @@ string ENCRYPT(string plain_text, vector<char>mapper){
     return temp;
 }
 
+string DECRYPT(string encrypt_text, vector<char>mapper){
+    string temp = "";
+    for(int i = 0; i < encrypt_text.size(); i++){
+        temp += mapper[(A * (((encrypt_text[i] - 'a') - b) + 26) % 26)];
+    }
+    return temp;
+}
+
 int main(){
-    vector<char>vec;
+    vector<char>mapper;
     
     for(char i = 'a'; i <= 'z'; i++){
-        vec.push_back(i);
+        mapper.push_back(i);
     }
     string plain_text;
     cin >> plain_text;
 
-    string res = ENCRYPT(plain_text, vec);
-    cout << res;
+    string res = ENCRYPT(plain_text, mapper);
+    cout << res << endl;
+    cout << DECRYPT(res, mapper);
 }
