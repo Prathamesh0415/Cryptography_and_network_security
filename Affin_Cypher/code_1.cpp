@@ -20,17 +20,23 @@ const int b = 7;
 //This follows the prooperty a^-1*a % 26 == 1 so bascially a^-1 . a == 27
 //in this case since a == 3 Therfore a^-1 == 9 since 9 . 3 == 27
 
-string ENCRYPT(string a, vector<char>mapper){
+string ENCRYPT(string plain_text, vector<char>mapper){
     string temp = "";
-    for(int i = 0; i < a.size(); i++){
-        temp += 
+    for(int i = 0; i < plain_text.size(); i++){
+        temp += mapper[(a * (plain_text[i] - 'a') + b) % 26];
     }
+    return temp;
 }
 
 int main(){
     vector<char>vec;
     
-    for(int i = 'a'; i <= 'z'; i++){
+    for(char i = 'a'; i <= 'z'; i++){
         vec.push_back(i);
     }
+    string plain_text;
+    cin >> plain_text;
+
+    string res = ENCRYPT(plain_text, vec);
+    cout << res;
 }
