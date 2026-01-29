@@ -11,6 +11,15 @@ string ENCRYPT(string plain_text, int k1, int k2){
 
 }
 
+string DECRYPT(string plain_text, int k2, int k){
+    string temp = "";
+    for(auto it: plain_text){
+        temp += 'a' + (((it - 'a') - k2 + 26)*k) % 26;
+    }
+    return temp;
+
+}
+
 int main(){
     string plain_text;
     int k1 = 0;
@@ -22,13 +31,14 @@ int main(){
     int k = -1;
     int counter = 1;
     while(1){
-        if(((counter * 26 + 1) % k1) == 1){
+        if(((counter * 26 + 1) % k1) == 0){
             k = (counter * 26 + 1) / k1;
             break;
         }
         //cout << counter;
         counter++;
     }
-    cout << ENCRYPT(plain_text, k1, k2);
+    string res = ENCRYPT(plain_text, k1, k2);
+    cout << DECRYPT(res, k2, k);
 
 }
